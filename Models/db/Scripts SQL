@@ -1,0 +1,96 @@
+--
+-- ER/Studio 8.0 SQL Code Generation
+-- Company :      I-Connection
+-- Project :      Modelo Entidad Relacion.dm1
+-- Author :       Windows User
+--
+-- Date Created : Monday, September 26, 2016 17:31:54
+-- Target DBMS : MySQL 5.x
+--
+
+-- 
+-- TABLE: Grupo 
+--
+
+CREATE TABLE Grupo(
+    GrupoID        BINARY(16)      NOT NULL,
+    Descripcion    VARCHAR(100)    NOT NULL,
+    PRIMARY KEY (GrupoID)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: Publicacion 
+--
+
+CREATE TABLE Publicacion(
+    PublicacionID    BINARY(16)       NOT NULL,
+    Fecha            DATETIME         NOT NULL,
+    Titulo           VARCHAR(100)     NOT NULL,
+    Contenido        VARCHAR(4000)    NOT NULL,
+    Image            VARCHAR(100)     NOT NULL,
+    GrupoID          BINARY(16)       NOT NULL,
+    PRIMARY KEY (PublicacionID)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: Suscrito 
+--
+
+CREATE TABLE Suscrito(
+    SuscritoID    BINARY(16)      NOT NULL,
+    Nombres       VARCHAR(50)     NOT NULL,
+    Apellidos     VARCHAR(50)     NOT NULL,
+    Email         VARCHAR(255)    NOT NULL,
+    Extension     VARCHAR(10)     NOT NULL,
+    Telefono      VARCHAR(20)     NOT NULL,
+    PRIMARY KEY (SuscritoID)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: SuscritoGrupo 
+--
+
+CREATE TABLE SuscritoGrupo(
+    SuscritoGrupoID    BINARY(16)    NOT NULL,
+    SuscritoID         BINARY(16)    NOT NULL,
+    GrupoID            BINARY(16)    NOT NULL,
+    PRIMARY KEY (SuscritoGrupoID)
+)ENGINE=MYISAM
+;
+
+
+
+-- 
+-- TABLE: Publicacion 
+--
+
+ALTER TABLE Publicacion ADD CONSTRAINT RefGrupo1 
+    FOREIGN KEY (GrupoID)
+    REFERENCES Grupo(GrupoID)
+;
+
+
+-- 
+-- TABLE: SuscritoGrupo 
+--
+
+ALTER TABLE SuscritoGrupo ADD CONSTRAINT RefSuscrito2 
+    FOREIGN KEY (SuscritoID)
+    REFERENCES Suscrito(SuscritoID)
+;
+
+ALTER TABLE SuscritoGrupo ADD CONSTRAINT RefGrupo3 
+    FOREIGN KEY (GrupoID)
+    REFERENCES Grupo(GrupoID)
+;
+
+
